@@ -1,0 +1,42 @@
+.nav {
+  display: flex;  
+  justify-content: space-around;   
+  height: auto; 
+}
+
+ul.drop-menu li {
+  display: none;
+  background-color: grey;
+}
+li:hover {
+  animation: shrinkRay 1s ease-in-out 0ms infinite alternate;
+}
+
+@keyframes shrinkRay {
+  0%{
+    font-size: 2em;
+  }   
+  
+  100%{
+    font-size: 0.5em;
+  }        
+}
+
+.nav1 .internal{
+  visibility: hidden;
+}
+
+.nav1 .show{
+  animation: showList 1s ease-in-out 0ms 1 forwards;
+}
+ @keyframes showList {
+   0%{
+     opacity: 0;
+     visibility: hidden;
+   }
+   100% {
+     opacity: 100%;
+     visibility: visible;
+   }
+ }
+
