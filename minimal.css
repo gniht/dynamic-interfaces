@@ -83,6 +83,7 @@ nav button {
 }
 
 .wide-centered {
+  display: flex;
   grid-column: 2/12;
   padding: 3px;
 }
