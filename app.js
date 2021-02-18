@@ -1,4 +1,5 @@
 let indexOffset = 0;
+const circles = document.getElementById("#circles");
 
 let left = document.querySelector(".left");
 let right = document.querySelector(".right");
@@ -16,6 +17,20 @@ right.addEventListener('click', e => {
   indexOffset += 1;  
   updateSlides(document.querySelector('.slideshow').children);
 });
+drawCircles();
+function drawCircles () {
+  const circleList = document.querySelector('.slideshow').children;
+  let circleIndex = Math.abs(indexOffset%circleList.length);
+  for (let i = 0; i < circleList.length; i++){
+    let circle = document.createElement('button');
+    circle.classList.add('circle');
+    circle.id = `${i}`;
+    if (circleIndex === i) {
+      circle.classList.add('selected');      
+    }
+    circles.append(circle);
+  }
+}
 
 function updateSlides (slidesArr) {
   let selectedIndex = Math.abs(indexOffset%slidesArr.length);
