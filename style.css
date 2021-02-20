@@ -62,8 +62,13 @@ img {
   height: 20px;
   width: 20px;
   border-radius: 50%;
+  
 }
-
+#circles {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
 .selected {
   border: solid 3px pink;
 }
