@@ -1,4 +1,6 @@
-let indexOffset = 0;
+
+let index = 0;
+let lastIndex;
 const circles = document.createElement('div');
 circles.classList.add('wide-full');
 circles.classList.add('centered');
@@ -11,50 +13,75 @@ let left = document.querySelector(".left");
 let right = document.querySelector(".right");
 updateSlides(document.querySelector('.slideshow').children);
 
+
 left.addEventListener('click', e => {
   e.preventDefault();
   e.stopPropagation();
-  indexOffset -= 1;
+  lastIndex = index;
+  if (index === 0) {
+    index = (document.querySelector('.slideshow').children.length-1);
+  } else {
+    index -= 1;
+  }
+  document.getElementById(`${lastIndex}`).classList.remove('selected');
+  document.getElementById(`${index}`).classList.add('selected');
+   
+  console.log(index);
   updateSlides(document.querySelector('.slideshow').children);
 });
+
 right.addEventListener('click', e => {
   e.preventDefault();
   e.stopPropagation();
-  indexOffset += 1;  
-  updateSlides(document.querySelector('.slideshow').children);
-  drawCircles ();
+  lastIndex = index;  
+  if (index === (document.querySelector('.slideshow').children.length-1) ) {
+    index = 0;
+  } else {
+    index += 1;
+  }
+  document.getElementById(`${lastIndex}`).classList.remove('selected');
+  document.getElementById(`${index}`).classList.add('selected');    
+  updateSlides(document.querySelector('.slideshow').children);    
 });
+
 circles.addEventListener('click', e => {
   e.preventDefault();
   e.stopPropagation();
-  parseInt(e.target.id)
-  drawCircles (circles);
+  lastIndex = index;
+  index = parseInt(e.target.id);
+  if (parseInt(e.target.id) >= 0){
+    document.getElementById(`${lastIndex}`).classList.remove('selected');
+    e.target.classList.add('selected');
+  }
+  updateSlides(document.querySelector('.slideshow').children);
+  
 });
 
-console.log();
-console.log(circles.firstChild)
-function drawCircles (element) {
-  while (element.firstChild) {
-    element.remove(element.firstChild);
-  }
+function drawCircles (lastIndex, index) {
+  let ele = document.querySelector('#circles');
   const circleList = document.querySelector('.slideshow').children;
-  let circleIndex = Math.abs(indexOffset%circleList.length);
-  for (let i = 0; i < circleList.length; i++){
-    let circle = document.createElement('button');
-    circle.classList.add('circle');
-    circle.id = `${i}`;
-    if (circleIndex === i) {
-      circle.classList.add('selected');      
+  if (ele.children.length === 0){
+    for (let i = 0; i < circleList.length; i++){    
+      let circle = document.createElement('button');
+      circle.classList.add('circle');
+      circle.id = `${i}`;
+      if (i === index) {
+        circle.classList.add('selected');      
+      }
+      ele.append(circle);
     }
-    circles.append(circle);
-  }
+  } 
+    
+
+  
+  
+
   
 }
 
-function updateSlides (slidesArr) {
-  let selectedIndex = Math.abs(indexOffset%slidesArr.length);
+function updateSlides (slidesArr) {  
   for (let i = 0; i < slidesArr.length; i++) {
-    if (i === selectedIndex) {
+    if (i === index) {
       slidesArr[i].classList.remove('hide');
       slidesArr[i].classList.add('show');
     } else {

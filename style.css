@@ -70,7 +70,7 @@ img {
   width: 50%;
 }
 .selected {
-  border: solid 3px pink;
+  background-color: red;
 }
 
 @keyframes show {
