@@ -4,7 +4,7 @@ circles.classList.add('wide-full');
 circles.classList.add('centered');
 circles.id = 'circles';
 document.getElementById('circlesDiv').append(circles)
-drawCircles ();
+drawCircles (circles);
 
 
 let left = document.querySelector(".left");
@@ -28,13 +28,15 @@ circles.addEventListener('click', e => {
   e.preventDefault();
   e.stopPropagation();
   parseInt(e.target.id)
-  drawCircles ();
+  drawCircles (circles);
 });
 
 console.log();
-
-function drawCircles () {
-  console.log(circles.firstChild) 
+console.log(circles.firstChild)
+function drawCircles (element) {
+  while (element.firstChild) {
+    element.remove(element.firstChild);
+  }
   const circleList = document.querySelector('.slideshow').children;
   let circleIndex = Math.abs(indexOffset%circleList.length);
   for (let i = 0; i < circleList.length; i++){
